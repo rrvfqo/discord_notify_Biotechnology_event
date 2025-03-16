@@ -1,8 +1,8 @@
-name: Run "批准" Every 20 Minutes
+name: Run "批准" Every 2 Hours
 
 on:
   schedule:
-    - cron: '*/20 * * * *'   # 每20分鐘執行一次
+    - cron: '0 */2 * * *'   # 每2小時執行一次
   workflow_dispatch:        # 允許手動觸發
 
 jobs:
