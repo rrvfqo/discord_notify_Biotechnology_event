@@ -111,14 +111,10 @@ def check_new_announcements():
     return new_announcements
 
 
-# if __name__ == "__main__":
-#     # 啟動定時任務的背景執行緒
-#     schedule_thread = threading.Thread(target=run_schedule)
-#     schedule_thread.start()
+if __name__ == "__main__":
 
-#     # 主執行緒繼續執行其他任務
-#     while True:
-#         time.sleep(1)
+    check_new_announcements()
+
 
 
     
