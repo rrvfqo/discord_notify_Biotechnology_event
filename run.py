@@ -2,12 +2,6 @@
 查詢公告快易查網站，取得生技公告，關鍵字為"批准"
 '''
 
-
-
-# import schedule
-# import time
-# import threading
-# import signal
 import sys
 import requests
 
@@ -49,17 +43,6 @@ def job():
     else:
         print("沒有新的公告")
 
-# schedule.every(10).minutes.do(job)
-# schedule.every(30).seconds.do(job)
-
-
-# def run_schedule():
-#     while True:
-#         try:
-#             schedule.run_pending()
-#         except Exception as e:
-#             print(f"Error running scheduled job: {e}")
-#         time.sleep(1)
 
 def signal_handler(sig, frame):
     global running
@@ -71,12 +54,3 @@ if __name__ == "__main__":
 
     job()
 
-    # # 設定停止信號處理
-    # signal.signal(signal.SIGINT, signal_handler)
-
-    # # 初始化 running 變數
-    # running = True
-
-    # # 啟動定時任務的背景執行緒
-    # schedule_thread = threading.Thread(target=run_schedule)
-    # schedule_thread.start()

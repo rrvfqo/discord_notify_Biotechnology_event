@@ -5,17 +5,28 @@
 
 import requests
 import json
-from datetime import datetime
-# import schedule
-# import time
-# import threading    
+from datetime import datetime  
+import os
 
 
 # 台灣證券交易所公告網址
 announcement_url = "https://mopsov.twse.com.tw/mops/web/ezsearch_query"
 
+# 紀錄已發送的公告檔案路徑
+sent_announcements_file = "sent_announcements.json"
+
+def load_sent_announcements():
+    if os.path.exists(sent_announcements_file):
+        with open(sent_announcements_file, "r", encoding="utf-8") as file:
+            return set(json.load(file))
+    return set()
+
+def save_sent_announcements():
+    with open(sent_announcements_file, "w", encoding="utf-8") as file:
+        json.dump(list(sent_announcements), file, ensure_ascii=False, indent=4)
+
 # 紀錄已發送的公告
-sent_announcements = set()
+sent_announcements = load_sent_announcements()
 
 # 紀錄上次檢查日期
 last_checked_date = datetime.now().strftime('%Y%m%d')
@@ -65,6 +76,7 @@ def check_new_announcements():
     # 如果跨日，清空 sent_announcements
     if today != last_checked_date:
         sent_announcements.clear()
+        save_sent_announcements()  # 清空檔案內容
         last_checked_date = today
 
     sii_response_dict = get_sii_announcement()
@@ -92,18 +104,12 @@ def check_new_announcements():
         for announcement in new_announcements:
             announcement_details = f"{announcement['CDATE']}\n{announcement['COMPANY_ID']}{announcement['COMPANY_NAME']}\n{announcement['SUBJECT']}\n{announcement['HYPERLINK']}"
             print(announcement_details)
+        save_sent_announcements()  # 儲存已發送的公告
     else:
         print("沒有新的公告")
 
     return new_announcements
 
-# # 設定每5秒鐘檢查一次公告
-# schedule.every(5).minutes.do(check_new_announcements)
-
-# def run_schedule():
-#     while True:
-#         schedule.run_pending()
-#         time.sleep(1)
 
 # if __name__ == "__main__":
 #     # 啟動定時任務的背景執行緒
