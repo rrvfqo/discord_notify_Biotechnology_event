@@ -27,6 +27,7 @@ def save_sent_announcements():
 
 # 紀錄已發送的公告
 sent_announcements = load_sent_announcements()
+print(sent_announcements)
 
 # 紀錄上次檢查日期
 last_checked_date = datetime.now().strftime('%Y%m%d')
