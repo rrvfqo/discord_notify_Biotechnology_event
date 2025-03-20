@@ -18,11 +18,6 @@ jobs:
         with:
           python-version: '3.11'  # 指定你使用的 Python 版本，例如 '3.11'
 
-      - name: Restore sent_announcements.json
-        uses: actions/download-artifact@v3
-        with:
-          name: sent_announcements
-          path: .
 
       - name: Install dependencies
         run: |
@@ -33,8 +28,3 @@ jobs:
         run: |
           python run.py   # 將 'run.py' 換成你要執行的程式檔案名稱
 
-      - name: Save sent_announcements.json
-        uses: actions/upload-artifact@v3
-        with:
-          name: sent_announcements
-          path: sent_announcements.json
