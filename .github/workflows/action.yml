@@ -18,6 +18,15 @@ jobs:
         with:
           python-version: '3.11'  # 指定你使用的 Python 版本，例如 '3.11'
 
+      # 初始化 sent_announcements.txt（如果不存在）
+      - name: Initialize sent_announcements.txt
+        run: |
+          if [ ! -f "sent_announcements.txt" ]; then
+            echo "Initializing sent_announcements.txt"
+            touch sent_announcements.txt
+          fi
+
+      # 嘗試恢復 sent_announcements.txt
       - name: Restore sent_announcements.txt
         uses: actions/download-artifact@v4
         with:
@@ -33,6 +42,7 @@ jobs:
         run: |
           python get_new_biotech_ann.py   # 執行你的 Python 腳本
 
+      # 保存更新後的 sent_announcements.txt
       - name: Save sent_announcements.txt
         uses: actions/upload-artifact@v4
         with:
