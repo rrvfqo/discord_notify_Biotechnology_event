@@ -19,10 +19,10 @@ jobs:
           python-version: '3.11'  # 指定你使用的 Python 版本，例如 '3.11'
 
       - name: Restore sent_announcements.txt
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: sent_announcements
-          path: .
+          path: ./sent_announcements.txt  # 指定下載的檔案路徑
 
       - name: Install dependencies
         run: |
@@ -34,8 +34,8 @@ jobs:
           python get_new_biotech_ann.py   # 執行你的 Python 腳本
 
       - name: Save sent_announcements.txt
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sent_announcements
-          path: sent_announcements.txt
+          path: sent_announcements.txt  # 指定要上傳的檔案
 
