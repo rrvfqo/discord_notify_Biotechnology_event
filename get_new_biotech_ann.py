@@ -13,21 +13,20 @@ import os
 announcement_url = "https://mopsov.twse.com.tw/mops/web/ezsearch_query"
 
 # 紀錄已發送的公告檔案路徑
-sent_announcements_file = "sent_announcements.json"
+sent_announcements_file = "sent_announcements.txt"
 # 紀錄上次檢查日期的檔案路徑
 last_checked_date_file = "last_checked_date.txt"
 
 def load_sent_announcements():
     if os.path.exists(sent_announcements_file):
         with open(sent_announcements_file, "r", encoding="utf-8") as file:
-            content = file.read().strip()
-            if content:
-                return set(json.loads(content))
+            return set(line.strip() for line in file if line.strip())
     return set()
 
-def save_sent_announcements(save_sent_announcements):
+def save_sent_announcements(sent_announcements):
     with open(sent_announcements_file, "w", encoding="utf-8") as file:
-        json.dump(list(sent_announcements), file, ensure_ascii=False, indent=4)
+        for announcement in sent_announcements:
+            file.write(announcement + "\n")
 
 def load_last_checked_date():
     if os.path.exists(last_checked_date_file):
@@ -132,5 +131,5 @@ if __name__ == "__main__":
 
 
 
-    
+
 
