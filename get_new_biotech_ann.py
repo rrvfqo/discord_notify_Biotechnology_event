@@ -18,10 +18,15 @@ sent_announcements_file = "sent_announcements.txt"
 last_checked_date_file = "last_checked_date.txt"
 
 def load_sent_announcements():
-    if os.path.exists(sent_announcements_file):
-        with open(sent_announcements_file, "r", encoding="utf-8") as file:
-            return set(line.strip() for line in file if line.strip())
-    return set()
+    # 如果檔案不存在，建立一個新的空檔案
+    if not os.path.exists(sent_announcements_file):
+        with open(sent_announcements_file, "w", encoding="utf-8") as file:
+            file.write("")  # 建立空檔案
+        return set()
+    
+    # 如果檔案存在，讀取內容
+    with open(sent_announcements_file, "r", encoding="utf-8") as file:
+        return set(line.strip() for line in file if line.strip())
 
 def save_sent_announcements(sent_announcements):
     with open(sent_announcements_file, "w", encoding="utf-8") as file:
