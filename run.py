@@ -3,6 +3,7 @@
 '''
 
 import sys
+import os
 import requests
 
 from get_new_biotech_ann import check_new_announcements  # 匯入函式
@@ -10,7 +11,7 @@ from get_new_biotech_ann import check_new_announcements  # 匯入函式
 
 
 def notify_discord_webhook(msg):
-    url = 'https://discord.com/api/webhooks/1328584537604751473/NRX45NRVkqrlaBWqBKTDLeYLa-rVnzBgQnT4L5QdBZYu2AxK7quw4yeXiTHDwMSXIJS9'
+    url = os.getenv('DISCORD_WEBHOOK_URL')
     headers = {"Content-Type": "application/json"}
     data = {"content": msg, "username": "公告-生技"}
     res = requests.post(url, headers = headers, json = data) 
